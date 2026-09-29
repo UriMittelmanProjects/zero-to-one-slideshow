@@ -161,6 +161,26 @@ async function fullscreen() {
   catch { announce('Fullscreen is unavailable. You can still play the slideshow here.'); }
 }
 $('#fullscreen').addEventListener('click', fullscreen);
+const controlOverlays = [...stage.querySelectorAll('.stage-top, .stage-bottom, .progress-track')];
+let hiddenPointer = null;
+function showControls() {
+  stage.classList.remove('controls-hidden');
+  controlOverlays.forEach(overlay => { overlay.inert = false; });
+  hiddenPointer = null;
+}
+$('#hide-controls').addEventListener('click', event => {
+  stage.focus({ preventScroll: true });
+  hiddenPointer = { x: event.clientX, y: event.clientY };
+  controlOverlays.forEach(overlay => { overlay.inert = true; });
+  stage.classList.add('controls-hidden');
+  announce('Controls hidden. Move the mouse, tap the photo, or press a key to show them.');
+});
+document.addEventListener('pointermove', event => {
+  if (hiddenPointer && (event.clientX !== hiddenPointer.x || event.clientY !== hiddenPointer.y)) showControls();
+}, { passive: true });
+stage.addEventListener('pointerdown', event => { if (event.pointerType === 'touch') showControls(); }, { passive: true });
+document.addEventListener('keydown', showControls, { capture: true });
+document.addEventListener('fullscreenchange', showControls);
 document.addEventListener('fullscreenchange', () => $('#fullscreen').setAttribute('aria-label', document.fullscreenElement ? 'Exit fullscreen' : 'Enter fullscreen'));
 document.addEventListener('keydown', event => {
   if (dialog.open || event.ctrlKey || event.metaKey || event.altKey || event.target.closest('input,select,textarea,button,a,[contenteditable="true"]')) return;

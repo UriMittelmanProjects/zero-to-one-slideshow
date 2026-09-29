@@ -11,6 +11,7 @@ A standalone GitHub Pages slideshow of the fixed 83-photo Zero to One Startup-a-
 - Choose photos to skip, or use Skip this photo. Skipping is playback selection, not deletion.
 - Reset restores the exact defaults and restarts at photo 1.
 - Pause/play, previous/next, fullscreen, and keyboard shortcuts (Space, arrows, F).
+- Hide controls clears the photo display, including the progress bar. Moving the mouse restores controls; touch users can tap the photo, and keyboard users can press any key. This works both inline and in fullscreen, without changing playback.
 - Playback pauses while the photo picker or a background tab is open. Photos load before their display timer starts.
 - Settings are session-only; reloading starts with the specified defaults.
 
