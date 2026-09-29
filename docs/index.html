@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="The Zero to One Startup-a-thon in 83 photographs. A customizable slideshow with playback, transitions, and gentle motion.">
+  <meta name="theme-color" content="#101114">
+  <title>Zero to One — Slideshow</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23101114'/%3E%3Cpath d='M25 17L48 32 25 47Z' fill='%23c5f277'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preload" as="image" href="images/photo-01.webp">
+  <script type="module" src="app.js"></script>
+</head>
+<body>
+  <header class="site-header">
+    <a class="wordmark" href="./" aria-label="Zero to One home"><span class="brand-icon">0<span>↗</span>1</span><span>ZERO TO ONE<small>STARTUP-A-THON</small></span></a>
+    <span class="collection-label">THE COLLECTION <b>83 PHOTOS</b></span>
+  </header>
+  <main>
+    <section class="viewer-column" aria-label="Slideshow player">
+      <div class="section-heading"><h1>A look back.</h1><span class="eyebrow">PEOPLE. IDEAS. POSSIBILITIES.</span></div>
+      <div id="stage" class="stage" tabindex="0" aria-label="Photo slideshow. Space to pause, arrow keys to navigate, F for fullscreen.">
+        <div id="layers" class="layers"><div class="photo-layer"><img src="images/photo-01.webp" alt="Zero to One Startup-a-thon event photo 1"></div></div>
+        <div id="stage-message" class="stage-message" hidden><p id="message-text"></p><button id="message-action" type="button">Try again</button></div>
+        <div class="stage-top"><span id="play-state" class="stage-badge">PLAYING</span><button class="icon-button" id="fullscreen" type="button" aria-label="Enter fullscreen" title="Fullscreen (F)"><svg viewBox="0 0 24 24"><path d="M8 3H3v5m13-5h5v5M3 16v5h5m13-5v5h-5"/></svg></button></div>
+        <div class="stage-bottom"><span id="photo-caption">01 / 83</span><div class="transport"><button id="previous" class="icon-button" aria-label="Previous photo" title="Previous (Left arrow)"><svg viewBox="0 0 24 24"><path d="m14 6-6 6 6 6"/></svg></button><button id="play" class="icon-button play-button" aria-label="Pause slideshow" title="Play / pause (Space)"><svg id="play-icon" viewBox="0 0 24 24"><path d="M9 6v12M15 6v12"/></svg></button><button id="next" class="icon-button" aria-label="Next photo" title="Next (Right arrow)"><svg viewBox="0 0 24 24"><path d="m10 6 6 6-6 6"/></svg></button></div><button id="skip-current" class="text-button">Skip this photo</button></div>
+        <div class="progress-track"><div id="progress"></div></div>
+      </div>
+      <div class="viewer-meta"><span id="current-file">IMG_0450.JPG</span><span id="sequence-summary">83 in rotation · 4m 09s per loop</span></div>
+      <div class="filmstrip-heading"><span class="eyebrow">IN THE FRAME</span><button id="open-photos" class="text-button">Choose photos <span id="chosen-count">83 / 83</span></button></div>
+      <div id="filmstrip" class="filmstrip" aria-label="Jump to a photo"></div>
+      <p class="keyboard-hint"><kbd>Space</kbd> pause <span>·</span> <kbd>←</kbd> <kbd>→</kbd> navigate <span>·</span> <kbd>F</kbd> fullscreen</p>
+    </section>
+    <aside class="settings" aria-label="Playback settings">
+      <div class="settings-heading"><h2>Make it yours.</h2><button id="reset" class="text-button">Reset</button></div>
+      <div class="setting-block"><div class="label-row"><label for="speed">TIME PER PHOTO</label><span class="number-field"><input id="speed" type="number" min="0.5" max="60" step="0.5" value="3" aria-label="Seconds per photo"><span>sec</span></span></div><input id="speed-range" type="range" min="0.5" max="15" step="0.5" value="3" aria-label="Seconds per photo slider"><div class="range-labels"><span>Faster</span><span>Slower</span></div></div>
+      <div class="setting-block"><label class="switch-row" for="loop"><span><strong>Loop slideshow</strong><small>Return to the first photo at the end</small></span><input id="loop" type="checkbox" checked role="switch"></label></div>
+      <fieldset class="setting-block"><legend>TRANSITION</legend><div class="segmented"><label><input type="radio" name="transition" value="fade" checked><span>Fade</span></label><label><input type="radio" name="transition" value="cut"><span>Cut</span></label><label><input type="radio" name="transition" value="slide"><span>Slide</span></label></div></fieldset>
+      <div class="setting-block"><label for="zoom">SLOW ZOOM</label><select id="zoom"><option value="off">Off</option><option value="in">Zoom in</option><option value="out">Zoom out</option></select><label for="pan" class="pan-label">SLOW PAN</label><select id="pan"><option value="off">Off</option><option value="right">Left to right</option><option value="left">Right to left</option><option value="down">Top to bottom</option><option value="up">Bottom to top</option></select><p class="setting-note">A little motion, at your pace.</p></div>
+      <div class="selection-summary"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg><div><strong id="skip-summary">All 83 photos included</strong><small>This collection is fixed. Skip any photo.</small></div></div>
+      <button id="manage-photos" class="secondary-button">Choose photos to play</button>
+    </aside>
+  </main>
+  <footer><span>ZERO TO ONE <span class="footer-dot">/</span> EVENT PHOTO COLLECTION</span><span>83 moments. One beginning.</span></footer>
+  <dialog id="photo-dialog" aria-labelledby="dialog-title"><div class="dialog-header"><div><span class="eyebrow">YOUR ROTATION</span><h2 id="dialog-title">Choose your moments.</h2><p>Uncheck photos to skip them. The collection always stays at 83.</p></div><button id="close-photos" class="icon-button" aria-label="Close photo picker"><svg viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></svg></button></div><div class="selection-toolbar"><span id="dialog-count">83 of 83 included</span><div><button id="include-all" class="text-button">Include all</button><button id="skip-all" class="text-button">Skip all</button></div></div><div id="photo-grid" class="photo-grid"></div><div class="dialog-footer"><span>Skipping changes playback only.</span><button id="done-photos" class="primary-button">Done</button></div></dialog>
+  <div id="announcement" class="sr-only" role="status" aria-live="polite"></div>
+  <noscript><p class="noscript">Please enable JavaScript to use this slideshow.</p></noscript>
+</body>
+</html>
